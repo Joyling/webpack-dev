@@ -32,6 +32,20 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [require('autoprefixer')] // 添加css中的浏览器前缀
+            }
+          },
+          'less-loader'
+        ]
       }
     ]
   }, // 模块配置：配置loader（处理非 JavaScript 文件，比如 less、sass、jsx、图片等等）等
