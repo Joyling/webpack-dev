@@ -8,6 +8,15 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'), // 解析路径为./dist
     filename: '[name].[hash:8].js'
   }, // 出口
+  // 配置开发服务器
+  // webpack-dev-server 是 webpack 官方提供的一个工具，可以基于当前的 webpack 构建配置快速启动一个静态服务。
+  // 当 mode 为 development 时，会具备 hot reload 的功能，即当源码文件变化时，会即时更新当前页面，以便你看到最新的效果
+  devServer: {
+    port: 1234,
+    open: true, // 自动打开浏览器
+    compress: true // 服务器压缩
+    //... proxy、hot
+  },
   resolve: {
     /**
      * alias: 别名的配置
