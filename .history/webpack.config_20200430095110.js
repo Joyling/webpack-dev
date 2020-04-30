@@ -12,13 +12,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',  //配置输出文件名和路径
-      template: './public/index.html', // 配置要被编译的html文件
-      hash: true,
-      // 压缩 => production 模式使用
-      minify: {
-        removeAttributeQuotes: true, //删除双引号
-        collapseWhitespace: true //折叠 html 为一行
-      }
+      template: './public/index.html' // 配置要被编译的html文件
     })
   ] // 插件的配置：打包优化、资源管理和注入环境变量
 }
