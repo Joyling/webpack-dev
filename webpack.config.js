@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   entry: './src/index.js', // 打包入口：指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始
   output: {
@@ -21,7 +22,16 @@ module.exports = {
       {
         test: /\.css$/,
         include: [path.resolve(__dirname, 'src')],
-        use: ['style-loader', 'css-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [require('autoprefixer')]
+            }
+          }
+        ]
       }
     ]
   }, // 模块配置：配置loader（处理非 JavaScript 文件，比如 less、sass、jsx、图片等等）等
@@ -35,6 +45,10 @@ module.exports = {
         removeAttributeQuotes: true, //删除双引号
         collapseWhitespace: true //折叠 html 为一行
       }
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     })
   ] // 插件的配置：打包优化、资源管理和注入环境变量
 }
