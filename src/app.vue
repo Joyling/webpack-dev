@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    {{ message }}
-   <p v-if="seen">现在你看到我了</p>
+   <router-view></router-view>
   </div>
 </template>
 
