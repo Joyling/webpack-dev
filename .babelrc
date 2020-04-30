@@ -1,0 +1,16 @@
+// presets 是一堆 plugins 的预设，起到方便的作用。
+// plugins 是编码转化工具，babel 会根据你配置的插件对代码进行相应的转化。
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+        },
+        "useBuiltIns": "usage"
+      }
+    ]
+  ]
+}
