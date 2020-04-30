@@ -8,7 +8,23 @@ module.exports = {
   }, // 出口
   resolve: {}, // 配置解析：配置别名、extensions 自动解析确定的扩展等等
   devServer: {}, // 开发服务器：run dev/start 的配置，如端口、proxy等
-  module: {}, // 模块配置：配置loader（处理非 JavaScript 文件，比如 less、sass、jsx、图片等等）等
+  module: {
+     /**
+     * test: 匹配特定条件。一般是提供一个正则表达式或正则表达式的数组
+     * include: 匹配特定条件。一般是提供一个字符串或者字符串数组
+     * exclude: 排除特定条件
+     * and: 必须匹配数组中的所有条件
+     * or: 匹配数组中任何一个条件,
+     * nor: 必须排除这个条件
+     */
+    rules: [
+      {
+        test: /\.css$/,
+        include: [path.resolve(__dirname, 'src')],
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }, // 模块配置：配置loader（处理非 JavaScript 文件，比如 less、sass、jsx、图片等等）等
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',  //配置输出文件名和路径
