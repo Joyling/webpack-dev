@@ -46,6 +46,24 @@ module.exports = {
           },
           'less-loader'
         ]
+      },
+      // file-loader: 可以用于处理很多类型的文件，它的主要作用是直接输出文件，把构建后的文件路径返回。
+      // url-loader:
+      // 如果图片较多，会发很多 http 请求，会降低页面性能。url-loader 会将引入的图片编码，生成 dataURl。相当于把图片数据翻译成一串字符。再把这串字符打包到文件中，最终只需要引入这个文件就能访问图片了。当然，如果图片较大，编码会消耗性能。因此 url-loader 提供了一个 limit 参数，小于 limit 字节的文件会被转为 DataURl，大于 limit 的还会使用 file-loader 进行 copy。
+
+      // url-loader 可以看作是增强版的 file-loader。
+      // url-loader 把图片编码成 base64 格式写进页面，从而减少服务器请求。
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              outputPath: 'images/', //输出到images文件夹
+              limit: 500 //是把小于500B的文件打成Base64的格式，写入JS
+            }
+          }
+        ]
       }
     ]
   }, // 模块配置：配置loader（处理非 JavaScript 文件，比如 less、sass、jsx、图片等等）等
