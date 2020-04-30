@@ -19,3 +19,8 @@ new Vue({
    router: router, //可以简写router
   components:{App}
 })
+function a(b) {
+  console.log(b)
+}
+
+a(1)

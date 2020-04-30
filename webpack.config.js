@@ -13,6 +13,7 @@ module.exports = {
   // webpack-dev-server 是 webpack 官方提供的一个工具，可以基于当前的 webpack 构建配置快速启动一个静态服务。
   // 当 mode 为 development 时，会具备 hot reload 的功能，即当源码文件变化时，会即时更新当前页面，以便你看到最新的效果
   devServer: {
+    overlay: true,
     port: 1234,
     open: true, // 自动打开浏览器
     compress: true // 服务器压缩
@@ -100,9 +101,16 @@ module.exports = {
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
+        use: [{
           loader: 'babel-loader'
-        }
+        },
+        {
+          loader: 'eslint-loader',
+          options: {
+            fix: true
+          }
+        },
+        ]
       },
       {
         test:/\.vue$/,

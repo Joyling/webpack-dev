@@ -7,10 +7,7 @@
 <script>
 export default {
   data() {
-    return {
-      message: 'dd',
-      seen: true
-    }
+    return {}
   }
 }
 </script>
