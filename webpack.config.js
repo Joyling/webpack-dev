@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
   entry: './src/index.js', // 打包入口：指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始
   output: {
@@ -30,10 +31,13 @@ module.exports = {
      *   这样配置在某种程度上可以简化模块的查找，提升构建速度 @default node_modules 优先
      */
     alias: {
+      //正在使用的是vue的运行时版本，而此版本中的编译器时不可用的，我们需要把它切换成运行时 + 编译的版本
+      'vue$':'vue/dist/vue.esm.js',// 'vue/dist/vue.common.js'
       '@': path.resolve(__dirname, 'src'),
       tool$: path.resolve(__dirname, 'src/utils/tool.js') // 给定对象的键后的末尾添加 $，以表示精准匹配
     },
-    extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx'],
+     //引入路径是不用写对应的后缀名
+    extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx', '.vue'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   }, // 配置解析：配置别名、extensions 自动解析确定的扩展等等
   devServer: {}, // 开发服务器：run dev/start 的配置，如端口、proxy等
@@ -99,9 +103,15 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
-      }
-    ]
-  }, // 模块配置：配置loader（处理非 JavaScript 文件，比如 less、sass、jsx、图片等等）等
+      },
+      {
+        test:/\.vue$/,
+        loader:'vue-loader'
+        //这一个loader当然是vue项目必须的加载器啦，不加其他规则的话，
+        //简单的这样引入就可以了，vue-loader会把vue单文件直接转成js。
+      },]
+  }, 
+  // 模块配置：配置loader（处理非 JavaScript 文件，比如 less、sass、jsx、图片等等）等
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',  //配置输出文件名和路径
@@ -117,7 +127,10 @@ module.exports = {
       filename: '[name].[hash:8].css',
       chunkFilename: '[id].[hash:8].css'
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+     // 请确保引入这个插件！这个插件是必须的！ 
+     // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
+     new VueLoaderPlugin()
   ], // 插件的配置：打包优化、资源管理和注入环境变量
   // 假如你 a.js 和 b.js 都 import 了 c.js 文件，这段代码就冗杂了。为什么要提取公共代码，简单来说，就是减少代码冗余，提高加载速度。
   optimization: {
