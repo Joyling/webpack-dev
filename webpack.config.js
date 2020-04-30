@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index.js', // 打包入口：指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始
   output: {
     path: path.resolve(__dirname, 'dist'), // 解析路径为./dist
-    filename: 'bundle.js'
+    filename: '[name].[hash:8].js'
   }, // 出口
   resolve: {}, // 配置解析：配置别名、extensions 自动解析确定的扩展等等
   devServer: {}, // 开发服务器：run dev/start 的配置，如端口、proxy等
@@ -87,8 +87,8 @@ module.exports = {
       }
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
+      filename: '[name].[hash:8].css',
+      chunkFilename: '[id].[hash:8].css'
     }),
     new CleanWebpackPlugin()
   ], // 插件的配置：打包优化、资源管理和注入环境变量
