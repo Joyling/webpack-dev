@@ -6,17 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "style": "stylelint 'src/**/*.vue' 'src/**/*.less' --fix"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
-},
+  },
   "lint-staged": {
     "src/**/*.vue": [
       "eslint --fix --ext .js",
       "prettier --write",
+      "git add"
+    ],
+    "*.less": [
+      "stylelint --syntax=less",
       "git add"
     ]
   },
@@ -44,6 +49,10 @@
     "postcss-loader": "^3.0.0",
     "prettier": "^2.0.5",
     "style-loader": "^1.2.1",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-scss": "^3.17.2",
+    "stylelint-webpack-plugin": "^2.0.0",
     "url-loader": "^4.1.0",
     "vue-loader": "^15.9.1",
     "vue-template-compiler": "^2.6.11",
