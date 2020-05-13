@@ -14,6 +14,7 @@ new Vue({
   el:"#app",
   template:'<App/>',
    //让vue知道我们的路由规则
+   store,
    router, //可以简写router
   components:{App}
 })

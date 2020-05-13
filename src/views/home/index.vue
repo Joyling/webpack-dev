@@ -8,14 +8,30 @@
   <el-link type="warning">警告链接</el-link>
   <el-link type="danger">危险链接</el-link>
   <el-link type="info">信息链接</el-link>
+  <div>
+    <p v-for="(news, index) in newsList.data.result" :key="index">{{news.title}}</p>
+  </div>
 </div>
   </div>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions, mapMutations } = createNamespacedHelpers("home");
 export default {
   data() {
-    return {}
+    return {
+      newsList: []
+    }
+  },
+  methods: {
+    ...mapActions(["getNewsList"]),
+    async initList() {
+      this.newsList = await this.getNewsList();
+    }
+  },
+  mounted() {
+    this.initList();
   }
 }
 </script>
