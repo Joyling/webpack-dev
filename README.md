@@ -86,3 +86,19 @@ webpack-bundle-analyzer 资源分析
    - Gulp 的学习，搞清楚 **gulp.src**, **gulp.dest**, **gulp.task**, **gulp.watch** 四个 API 就差不多了，它的底层原理是使用 Node 的 Transform Streams，这是一个可读可写可做中间转换的 Streams 管道，由于从 src 到 dest 过程中，文件一直停留在 Streams 中，没有落地成为实体文件，所以整体运作效率非常高。
 2. webpack
    - Webpack 概念很多，但搞清楚 entry，output 和 loader 三个关键点，基本上就可以解决简单的问题了，稍微复杂的场景主要包括对资源的合并处理、分拆处理、多次打包等，部分这样的问题可以使用插件辅助解决，但是 Webpack 的强大并不在文件处理，而是依赖分析，所以在流程操作特别复杂的情况，webpack 并不能胜任工作，往往会被作为 gulp 的一个 task，整体工作流交给 gulp 主导。
+
+# require.context
+
+可以使用require.context()方法來创建自己的（模块）上下文，这个方法有3个参数
+- 要搜索的文件夹目录
+- 是否还应该搜索它的子目录
+- 以及一个匹配文件的正则表达式
+```javascript
+  require.context("./test", false, /\.test\.js$/);
+  //（创建了）一个包含了 test 文件夹（不包含子目录）下面的、所有文件名以 `.test.js` 结尾的、能被 require 请求到的文件的上下文。
+```
+
+导出的方法有3个属性，resolve,keys,id
+- resolve 是一个函数，它返回请求被解析后得到的模块 id。
+- keys 也是一个函数，它返回一个数组，由所有可能被上下文模块处理的请求组成。
+- id 是上下文模块里面所包含的模块 id. 它可能在你使用 module.hot.accept 的时候被用到
