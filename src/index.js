@@ -3,6 +3,7 @@ import './assets/style/index.less'
 import App from './app.vue'
 import router from "@/router/router";
 import components from "@/components";
+import store from "@/store";
 
 
 new Vue({

@@ -32,6 +32,8 @@ npm init // 初始化npm项目,生成package.json文件
 
 [理解 Gulp 和 Webpack](https://www.barretlee.com/blog/2017/04/27/gulp-and-webpack/)
 
+[require.context](https://juejin.im/post/5ab8bcdb6fb9a028b77acdbd)
+
 # 常见loader(loader的作用顺序是从后往前)
 
 babel-loader ES6转ES5
