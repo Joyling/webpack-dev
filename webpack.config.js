@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
   entry: './src/index.js', // 打包入口：指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始
   output: {
@@ -10,13 +10,15 @@ module.exports = {
     filename: '[name].[hash:8].js'
   }, // 出口
   // 配置开发服务器
+  // 开发服务器：run dev/start 的配置，如端口、proxy等
   // webpack-dev-server 是 webpack 官方提供的一个工具，可以基于当前的 webpack 构建配置快速启动一个静态服务。
   // 当 mode 为 development 时，会具备 hot reload 的功能，即当源码文件变化时，会即时更新当前页面，以便你看到最新的效果
   devServer: {
     overlay: true,
     port: 1234,
     open: true, // 自动打开浏览器
-    compress: true // 服务器压缩
+    compress: true, // 服务器压缩
+    quiet: true, // 如果使用webpack-dev-server，需要设为true，禁止显示devServer的console信息
     //... proxy、hot
   },
   resolve: {
@@ -41,7 +43,6 @@ module.exports = {
     extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx', '.vue'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   }, // 配置解析：配置别名、extensions 自动解析确定的扩展等等
-  devServer: {}, // 开发服务器：run dev/start 的配置，如端口、proxy等
   module: {
      /**
      * test: 匹配特定条件。一般是提供一个正则表达式或正则表达式的数组
@@ -138,7 +139,8 @@ module.exports = {
     new CleanWebpackPlugin(),
      // 请确保引入这个插件！这个插件是必须的！ 
      // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
-     new VueLoaderPlugin()
+     new VueLoaderPlugin(),
+     // 管理输出-优化日志插件
   ], // 插件的配置：打包优化、资源管理和注入环境变量
   // 假如你 a.js 和 b.js 都 import 了 c.js 文件，这段代码就冗杂了。为什么要提取公共代码，简单来说，就是减少代码冗余，提高加载速度。
   optimization: {
