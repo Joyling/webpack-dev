@@ -9,7 +9,7 @@
   <el-link type="danger">危险链接</el-link>
   <el-link type="info">信息链接</el-link>
   <div>
-    <p v-for="(news, index) in newsList.data.result" :key="index">{{news.title}}</p>
+    <p v-for="(news, index) in newsList.result" :key="index">{{news.title}}</p>
   </div>
 </div>
   </div>
