@@ -104,3 +104,23 @@ webpack-bundle-analyzer 资源分析
 - resolve 是一个函数，它返回请求被解析后得到的模块 id。
 - keys 也是一个函数，它返回一个数组，由所有可能被上下文模块处理的请求组成。
 - id 是上下文模块里面所包含的模块 id. 它可能在你使用 module.hot.accept 的时候被用到
+
+# 导入element
+- 注意css的loader要包括node_modules，不然会报错！！！！！
+- ！！！！下面的include: [path.resolve(__dirname, 'src')]要删掉，不然编译不了element的样式
+```javascript
+      {
+        test: /\.css$/,
+        include: [path.resolve(__dirname, 'src')],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [require('autoprefixer')]
+            }
+          }
+        ]
+      },
+```

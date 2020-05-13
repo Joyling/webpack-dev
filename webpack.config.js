@@ -55,7 +55,6 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        include: [path.resolve(__dirname, 'src')],
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -88,7 +87,7 @@ module.exports = {
       // url-loader 可以看作是增强版的 file-loader。
       // url-loader 把图片编码成 base64 格式写进页面，从而减少服务器请求。
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
         use: [
           {
             loader: 'url-loader',

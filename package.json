@@ -64,6 +64,7 @@
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "core-js": "^2.6.11",
+    "element-ui": "^2.13.1",
     "vue": "^2.6.11",
     "vuex": "^3.4.0"
   }
