@@ -124,3 +124,5 @@ webpack-bundle-analyzer 资源分析
         ]
       },
 ```
+
+[webpack-bundle-analyzer插件快速入门](https://juejin.im/post/5cb70649f265da03452bd2d9)

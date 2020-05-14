@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
   entry: './src/index.js', // 打包入口：指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始
   output: {
@@ -139,7 +140,10 @@ module.exports = {
      // 请确保引入这个插件！这个插件是必须的！ 
      // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
      new VueLoaderPlugin(),
-     // 管理输出-优化日志插件
+     new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled', // 不启动展示打包报告的http服务器
+      generateStatsFile: true, // 是否生成stats.json文件
+    }),
   ], // 插件的配置：打包优化、资源管理和注入环境变量
   // 假如你 a.js 和 b.js 都 import 了 c.js 文件，这段代码就冗杂了。为什么要提取公共代码，简单来说，就是减少代码冗余，提高加载速度。
   optimization: {
